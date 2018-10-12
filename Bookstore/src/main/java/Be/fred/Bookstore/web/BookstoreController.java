@@ -65,6 +65,7 @@ public class BookstoreController {
 	}
 	//END SAVE
 	
+	//begin UPDATE
 	@GetMapping(value="/update/{id}")
 	public String updateBook(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("book", bookstoreRepository.findById(id));
@@ -72,19 +73,28 @@ public class BookstoreController {
 		return "update";
 	}
 	
-	@PostMapping(value = "/upsave")
+	@PostMapping(value = "update/upsave")
 	public String upsave(Book book) {
 		Long id = book.getId();
 		bookstoreRepository.deleteById(book.getId());
 		book.setId(id);
 		bookstoreRepository.save(book);
-		return "redirect:booklist";
+		return "redirect:../booklist";
 	}
+	//end UPDATE
 	
+	
+	//delete
 	@GetMapping("/delete/{id}")
 	public String deleteBook(@PathVariable("id")Long Id, Model model) {
 		bookstoreRepository.deleteById(Id);
 		return "redirect:../booklist";
+	}
+	
+	//login
+	@GetMapping("/login")
+	public String login() {
+		return "login";
 	}
 	
 	
