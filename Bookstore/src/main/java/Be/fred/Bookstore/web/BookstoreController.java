@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -85,17 +86,30 @@ public class BookstoreController {
 	
 	
 	//delete
+	
 	@GetMapping("/delete/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String deleteBook(@PathVariable("id")Long Id, Model model) {
 		bookstoreRepository.deleteById(Id);
 		return "redirect:../booklist";
 	}
 	
-	//login
+	//login get
 	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
 	
+	//login post
+		@PostMapping("/login")
+		public String postLogin() {
+			return "redirect:booklist";
+		}
+		
+		//logout get
+		@GetMapping("/logout")
+		public String logout() {
+			return "logout";
+		}
 	
 }
