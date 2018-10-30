@@ -26,6 +26,7 @@ public class BookstoreRepositoryTest {
 		assertThat(books).hasSize(1);
 	}
 	
+	
 	@Test
 	public void createNewBook() {
 		Book book = new Book("Testboek", "schrijver", 15, 15, 15, new Category("romance"));
@@ -37,6 +38,7 @@ public class BookstoreRepositoryTest {
 	public void deleteBook() {
 		long id= 1;
 		brepo.deleteById(id);
+		assertThat(brepo.findById(id)).isNull();
 	}
 	
 }
